@@ -8,16 +8,16 @@ from icrawler.builtin import GoogleImageCrawler
 from google.colab import files
 import numpy as np
 from PIL import Image
+import sys, os
 import os, glob
+import keras
 from keras.models import Sequential
+from keras.models import load_model
 from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
 from keras.utils import np_utils
-import keras
 import scipy
 import scipy.misc
-import sys, os
-from keras.models import load_model
 
 #declaration
 classes = ["cabeges","lettuces"]
@@ -31,7 +31,7 @@ Y_train = []
 Y_test  = []
 
 
-#get images of apples from Google search
+#get images from Google search
 crawler = GoogleImageCrawler(storage={"root_dir": "cabeges"})
 crawler.crawl(keyword="キャベツ", max_num=100)
 crawler = GoogleImageCrawler(storage={"root_dir": "lettuces"})
@@ -65,7 +65,7 @@ X_test  = np.array(X_test)
 y_train = np.array(Y_train)
 y_test  = np.array(Y_test)
 mon=(X_train, X_test, y_train, y_test)
-#savenpy file
+#save npy file
 np.save("./classified.npy",mon)
 
 #import data
